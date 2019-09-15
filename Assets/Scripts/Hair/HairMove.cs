@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class HairMove : MonoBehaviour, IStickListener
 {
-    [SerializeField] private float yMaxPosDeviation = 7;
+    [SerializeField] private float yMaxPosDeviation = 7.1f;
     [SerializeField] private float hairMoveSpeed = 9.8f;
     [SerializeField] private float towerMoveSpeed = 5f;
     private float yMaxPos, yMinPos;
@@ -34,7 +34,8 @@ public class HairMove : MonoBehaviour, IStickListener
     public void OnStickDeadZone(JoystickDoubleAxis stick)
     {
         if (stick.Code == AxisCode.LeftStick) {
-            hairRB.velocity = new Vector2( 0, 0 );
+            if (hairRB != null)
+                hairRB.velocity = new Vector2( 0, 0 );
         }
     }
 
@@ -73,9 +74,8 @@ public class HairMove : MonoBehaviour, IStickListener
 
                 }
             }
-        }
-        else if ( stick.Code == AxisCode.RightStick) {
-            tower.MoveX( - stick.X * Time.deltaTime * towerMoveSpeed );
+        } else if (stick.Code == AxisCode.RightStick) {
+            tower.MoveX( -stick.X * Time.deltaTime * towerMoveSpeed );
         }
     }
 

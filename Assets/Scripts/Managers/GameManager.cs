@@ -48,13 +48,15 @@ public class GameManager : MonoBehaviour, IOnCountdownEnd, IObservable<Difficult
 
         Subscribe( tower );
 
-        humanPlayer = PlayersFactory.GetHumanPlayer();
+        // humanPlayer = PlayersFactory.GetHumanPlayer();
         hairPlayer = PlayersFactory.GetHairPlayer();
 
         hairPlayer.GetComponent<HairMove>().Tower = tower;
 
-        Vector3 firstPlatformPos = tower.GetLowestPlatform( 1 ).transform.position;
-        humanPlayer.transform.position = firstPlatformPos + new Vector3( 0, 0.25f );
+        humanPlayer = GameObject.Find( "PlayerMainPrefab" );
+
+        // Vector3 firstPlatformPos = tower.GetLowestPlatform( 1 ).transform.position;
+        //humanPlayer.transform.position = firstPlatformPos + new Vector3( 0, 0.25f );
 
         // Timers initialization
         Instance.gameTimerId = TimerManager.Create( easyTimer, this );
@@ -63,7 +65,7 @@ public class GameManager : MonoBehaviour, IOnCountdownEnd, IObservable<Difficult
     public static void StartGame()
     {
         TimerManager.Reset( Instance.gameTimerId );
-        foreach (IObserver<long> observer in Instance.gameEventsObserver ) {
+        foreach (IObserver<long> observer in Instance.gameEventsObserver) {
             observer.Notice( 1 );
         }
     }
@@ -71,10 +73,10 @@ public class GameManager : MonoBehaviour, IOnCountdownEnd, IObservable<Difficult
     public static void SwitchInput(int player)
     {
         PInput pInput = null;
-        if ( player == 1 ) {
+        if (player == 1) {
             pInput = Instance.hairPlayer.GetComponent<PInput>();
             pInput.UsesJoystick = !pInput.UsesJoystick;
-        } else if ( player == 2) {
+        } else if (player == 2) {
             pInput = Instance.humanPlayer.GetComponent<PInput>();
             pInput.UsesJoystick = !pInput.UsesJoystick;
         }
@@ -99,7 +101,7 @@ public class GameManager : MonoBehaviour, IOnCountdownEnd, IObservable<Difficult
                     throw new ColdCry.Exception.MissingTypeException( "Missing implementation of difficulty: " + CurrentDifficulty );
             }
 
-            Debug.Log("Game diff: " + currentDifficulty);
+            Debug.Log( "Game diff: " + currentDifficulty );
 
             foreach (IObserver<Difficulty> observer in Instance.difficultyObservers) {
                 observer.Notice( CurrentDifficulty );

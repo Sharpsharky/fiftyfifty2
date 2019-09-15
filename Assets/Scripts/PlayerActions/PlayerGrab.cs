@@ -50,7 +50,7 @@ public class PlayerGrab : MonoBehaviour, ITriggerListener
 
     IEnumerator MakeHimCantHoldAfterMoments()
     {
-        yield return new WaitForSeconds(0.3f);
+        yield return new WaitForSeconds(0.1f);
         Debug.Log("CAN NOT GRAB");
 
         canHoldTheHair = false;

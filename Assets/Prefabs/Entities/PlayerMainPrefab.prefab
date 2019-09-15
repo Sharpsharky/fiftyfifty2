@@ -14,11 +14,12 @@ GameObject:
   - component: {fileID: 7620731596479282111}
   - component: {fileID: 7620731596479282096}
   - component: {fileID: 7620731596479282097}
-  - component: {fileID: 7620731596479282098}
   - component: {fileID: 7620731596479282107}
+  - component: {fileID: 999664068}
+  - component: {fileID: 5392002064340046139}
   m_Layer: 0
   m_Name: PlayerMainPrefab
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -71,10 +72,10 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 1909292535
-  m_SortingLayer: 2
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 338150ed59e17bc418aa2496bf4fd9fb, type: 3}
+  m_SortingLayerID: 605261443
+  m_SortingLayer: 4
+  m_SortingOrder: 1
+  m_Sprite: {fileID: 21300000, guid: 862fad2d5fe6414468635c1b390ef890, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -97,8 +98,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d16768e275c483468b944f90be0639a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 0.2
+  moveSpeed: 9.6
   jumpPower: 600
+  groundLayers:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!114 &7620731596479282111
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -125,10 +129,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4989435446fb4f444bc57e3ce5429450, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerNumber: 1
-  usesJoystick: 1
-  alternativeKeyboard: {fileID: 0}
+  playerNumber: 2
+  usesJoystick: 0
+  alternativeKeyboard: {fileID: 11400000, guid: f572012f05ca85c4f8944d450a4c6baa,
+    type: 2}
   inputEnabled: 1
+  useKeyboardAndJoy: 1
   LSx: 0.15
   LSy: 0.15
   RSx: 0.15
@@ -152,14 +158,45 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 2.2
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!70 &7620731596479282098
-CapsuleCollider2D:
+--- !u!95 &7620731596479282107
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7620731596479282099}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: f92de77fe07954640a1aebee05d51570, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &999664068
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7620731596479282099}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ebaf8e9fc9c057418840aa5f96bbf71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!61 &5392002064340046139
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -171,25 +208,16 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.25972682}
-  m_Size: {x: 4.0195208, y: 8.212137}
-  m_Direction: 0
---- !u!95 &7620731596479282107
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7620731596479282099}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 30004d306963d0b41b68ddfe6877013a, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_Offset: {x: -0.19069529, y: 0.037106037}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 12.16, y: 10.8}
+    newSize: {x: 12.16, y: 10.8}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 5.4460907, y: 8.192784}
+  m_EdgeRadius: 0

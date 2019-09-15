@@ -36,21 +36,24 @@ public class ChopperFactory : MonoBehaviour
 
         int direction = UnityEngine.Random.Range( 0, 2 );
         Vector3 startPos = Vector3.zero;
+        Vector3 oldScale = chopper.transform.localScale;
+
         if (direction == 0) {
             direction = -1;
             startPos = new Vector3(
                 GameManager.CameraXBound.Right + EnemyFactory.GetSpawnOffsetX( GameManager.CurrentDifficulty ),
                 UnityEngine.Random.Range( GameManager.CameraYBound.Left + Instance.yOffset, GameManager.CameraYBound.Right - Instance.yOffset ) );
+                chopper.transform.localScale = new Vector3( -direction * Mathf.Abs(oldScale.x), oldScale.y, oldScale.z );
         } else {
             startPos = new Vector3(
                 GameManager.CameraXBound.Left - EnemyFactory.GetSpawnOffsetX( GameManager.CurrentDifficulty ),
                 UnityEngine.Random.Range( GameManager.CameraYBound.Left + Instance.yOffset, GameManager.CameraYBound.Right - Instance.yOffset ) );
+                chopper.transform.localScale = new Vector3( -direction * Mathf.Abs( oldScale.x ), oldScale.y, oldScale.z );
         }
 
-        Vector3 oldScale = chopper.transform.localScale;
-        chopper.transform.localScale = new Vector3( -direction * oldScale.x, oldScale.y, oldScale.z );
-
-        chopper.transform.position = startPos;
+        chopper.transform.localPosition = startPos;
+        chopper.Direction = direction;
+        chopper.MoveSpeed = GetChopperSpeed( GameManager.CurrentDifficulty );
 
         return chopper;
     }

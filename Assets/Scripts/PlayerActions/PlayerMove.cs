@@ -7,11 +7,14 @@ public class PlayerMove : MonoBehaviour, IStickListener, IButtonListener
     [SerializeField] private float moveSpeed = 7.4f;
     [SerializeField] private float jumpPower = 200f;
 
+    public LayerMask groundLayers;
+
     private Rigidbody2D rb;
     private bool isGrounded = true;
     private PlayerGrab playerGrab;
     private Vector2 startScale;
     private Animator _animator;
+    private BoxCollider2D coll;
 
     private bool isJumping = false, iswalking = false,  isIdling = false;
 
@@ -20,16 +23,17 @@ public class PlayerMove : MonoBehaviour, IStickListener, IButtonListener
         _animator = GetComponent<Animator>();
         playerGrab = GetComponent<PlayerGrab>();
         rb = GetComponent<Rigidbody2D>();
+        coll = GetComponent<BoxCollider2D>();
         startScale = transform.localScale;
     }
 
     public void Update()
     {
-        Debug.Log("isGrounded:" + isGrounded);
+      //  Debug.Log("isGrounded:" + isGrounded);
 
         SpeedUpFalling();
 
-        Debug.Log("isJumping:"+ isJumping + " isIdling " + isIdling+ " iswalking " + iswalking);
+   //     Debug.Log("isJumping:"+ isJumping + " isIdling " + isIdling+ " iswalking " + iswalking);
 
 
     }
@@ -42,14 +46,12 @@ public class PlayerMove : MonoBehaviour, IStickListener, IButtonListener
     public void SpeedUpFalling()
     {
         if (rb.velocity.y < 0) {
-            rb.velocity = new Vector2( rb.velocity.x, rb.velocity.y * 1.09f );
+            rb.velocity = new Vector2( rb.velocity.x, rb.velocity.y * 1.04f );
         }
     }
 
     public void OnStickHold(JoystickDoubleAxis axis)
     {
-        
-
         if (axis.Code == AxisCode.LeftStick) {
             isIdling = false;
 
@@ -66,27 +68,11 @@ public class PlayerMove : MonoBehaviour, IStickListener, IButtonListener
             }
             if (playerGrab.isGrabbingHair != true) {
                 float x = axis.GetAxisX();
-                float y = axis.GetAxisY();
 
-                
-                transform.position = transform.position + new Vector3( x* moveSpeed, 0 );
-
-                if (y > 0.75) {
-                    Jump();
-                }
-            }
-
-            if(axis.X > 0)
-            {
-                transform.localScale = new Vector2(-1 * startScale.x, startScale.y);
-            }
-            else
-            {
-                transform.localScale = new Vector2(1 * startScale.x, startScale.y);
+                rb.velocity = new Vector2( 0, rb.velocity.y );
+                transform.position = transform.position + new Vector3( x * moveSpeed * Time.deltaTime, 0 );
 
             }
-
-
         }
     }
 
@@ -111,7 +97,8 @@ public class PlayerMove : MonoBehaviour, IStickListener, IButtonListener
 
     void Jump()
     {
-        if (!isGrounded) {
+
+        if (!isGrounded ) {
             return;
         }
         isJumping = true;
@@ -122,6 +109,13 @@ public class PlayerMove : MonoBehaviour, IStickListener, IButtonListener
         rb.AddForce( transform.up * jumpPower );
         isGrounded = false;
         gameObject.transform.parent = null;
+    }
+
+    public virtual bool IsTouchingGround()
+    {
+        return Physics.CheckBox( new Vector3( coll.bounds.center.x, coll.bounds.min.y, coll.bounds.center.z ),
+            new Vector3( coll.bounds.extents.x * 0.85f, coll.bounds.extents.y * 0.1f, coll.bounds.extents.z * 0.85f ),
+            coll.transform.rotation, groundLayers );
     }
 
 

@@ -55,3 +55,6 @@ TagManager:
   - name: FlyingEnemies
     uniqueID: 3230204591
     locked: 0
+  - name: Player
+    uniqueID: 605261443
+    locked: 0

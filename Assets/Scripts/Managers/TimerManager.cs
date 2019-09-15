@@ -176,6 +176,7 @@ namespace DoubleMMPrjc
                 if (newCountdown < 0)
                     throw new SystemException( "Countdown time cannot be less than 0!" );
                 if (GetCountdown( id, out Countdown countdown )) {
+                    countdown.WillBeRemoved = false;
                     Instance.endedCountdowns.Remove( id );
                     if (!Instance.notEndedCountdowns.ContainsKey( id )) {
                         Instance.notEndedCountdowns.Add( id, countdown );
@@ -324,24 +325,28 @@ namespace DoubleMMPrjc
                     float overtime = countdown.Overtime;
                     if (overtime >= 0) {
 
+                        countdownsToRemove.AddLast( key );
+                        countdown.WillBeRemoved = true;
+
                         if (!countdown.IsScheduled) {
-                            countdownsToRemove.AddLast( key );
-                            if (countdown.Listener != null)
-                                countdown.Listener.OnCountdownEnd( key, overtime );
                             if (!countdown.DestroyWhenEnds)
                                 endedCountdowns.Add( key, countdown );
-                        }                          
-                        else {
+                            if (countdown.Listener != null)
+                                countdown.Listener.OnCountdownEnd( key, overtime );
+                        } else {
                             countdown.Listener.OnCountdownEnd( key, overtime );
-                            countdown.Reset( countdown.CountdownTime );          
+                            countdown.Reset( countdown.CountdownTime );
+                            countdownsToRemove.AddLast( key );
                         }
-                            
+
                     }
+
                 }
 
                 foreach (long key in countdownsToRemove) {
                     Countdown countdown = notEndedCountdowns[key];
-                    notEndedCountdowns.Remove( key );
+                    if (countdown.WillBeRemoved)
+                        notEndedCountdowns.Remove( key );
                 }
             }
 
@@ -423,6 +428,7 @@ namespace DoubleMMPrjc
                 private IOnCountdownEnd listener;
                 private bool destroyWhenEnds;
                 private bool isScheduled;
+                private bool willBeRemoved = false;
 
                 public Countdown(float countdownTime, IOnCountdownEnd listener, bool destroyWhenEnds, bool isScheduled)
                 {
@@ -474,6 +480,7 @@ namespace DoubleMMPrjc
                 public float CountdownStartTime { get => countdownStartTime; }
                 public float TimeSpeed { get => timeSpeed; set => timeSpeed = value; }
                 public bool IsScheduled { get => isScheduled; set => isScheduled = value; }
+                public bool WillBeRemoved { get => willBeRemoved; set => willBeRemoved = value; }
             }
         }
 
