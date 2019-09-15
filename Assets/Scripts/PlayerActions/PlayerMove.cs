@@ -12,9 +12,11 @@ public class PlayerMove : MonoBehaviour, IStickListener, IButtonListener
     private Rigidbody2D rb;
     private bool isGrounded = true;
     private PlayerGrab playerGrab;
-    private Vector2 startScale;
+    private Vector3 startScale;
     private Animator _animator;
     private BoxCollider2D coll;
+    private float cameraMiddleY;
+    private PlayerAudio playerAudio;
 
     private bool isJumping = false, iswalking = false, isIdling = false;
 
@@ -24,18 +26,21 @@ public class PlayerMove : MonoBehaviour, IStickListener, IButtonListener
         playerGrab = GetComponent<PlayerGrab>();
         rb = GetComponent<Rigidbody2D>();
         coll = GetComponent<BoxCollider2D>();
+        playerAudio = GetComponent<PlayerAudio>();
         startScale = transform.localScale;
+    }
+
+    public void Start()
+    {
     }
 
     public void Update()
     {
-        //  Debug.Log("isGrounded:" + isGrounded);
-
         SpeedUpFalling();
-
-        //     Debug.Log("isJumping:"+ isJumping + " isIdling " + isIdling+ " iswalking " + iswalking);
-
-
+        if (transform.position.y > GameManager.CameraYBound.Right-0.5f ) {
+            float dy = transform.position.y - GameManager.CameraYBound.Right;
+            GameManager.Tower.MoveY(-dy * Time.deltaTime);
+        }
     }
 
     public void OnStickChange(JoystickDoubleAxis axis)
@@ -92,7 +97,6 @@ public class PlayerMove : MonoBehaviour, IStickListener, IButtonListener
 
     void Jump()
     {
-
         if (!isGrounded) {
             return;
         }
@@ -103,7 +107,8 @@ public class PlayerMove : MonoBehaviour, IStickListener, IButtonListener
         _animator.SetTrigger( "Jump" );
         rb.AddForce( transform.up * jumpPower );
         isGrounded = false;
-        gameObject.transform.parent = null;
+        ChangeParent( null );
+        playerAudio.PlayJumpShot();
     }
 
     public bool IsOnGround()
@@ -137,18 +142,23 @@ public class PlayerMove : MonoBehaviour, IStickListener, IButtonListener
 
                 if (isJumping == true)
                     isJumping = false;
-                gameObject.transform.parent = col.gameObject.transform;
+                ChangeParent( col.gameObject.transform );
                 transform.eulerAngles = new Vector3( 0, 0, 0 );
                 playerGrab.isChangingRotation = false;
                 isGrounded = true;
-
             }
         }
     }
 
+    public void ChangeParent(Transform parent)
+    {
+        transform.parent = parent;
+        transform.localScale = startScale;
+    }
+
     public void OnButtonPressed(ButtonCode code)
     {
-        if (code == ButtonCode.A && playerGrab.isGrabbingHair != true && IsOnGround()) {
+        if (code == ButtonCode.A && playerGrab.isGrabbingHair != true) {
             Jump();
         }
     }

@@ -1,11 +1,9 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(AudioSource))]
+[RequireComponent( typeof( AudioSource ) )]
 public class SoundMaker : MonoBehaviour
 {
-
     public AudioClip[] audioClips;
     private AudioSource audioSource;
 
@@ -13,16 +11,19 @@ public class SoundMaker : MonoBehaviour
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
-
-        int secs = Random.Range(1, 5);
-        StartCoroutine(PlaySoundAfterDelay(secs));
     }
 
     void PlayShot()
     {
-        int index = Random.Range(0, audioClips.Length);
+        int index = UnityEngine.Random.Range( 0, audioClips.Length );
 
-        audioSource.PlayOneShot(audioClips[index]);
+        audioSource.PlayOneShot( audioClips[index] );
+    }
+
+    internal void StartDelay()
+    {
+        float secs = UnityEngine.Random.Range( 1.5f, 5f );
+        StartCoroutine( PlaySoundAfterDelay( secs ) );
     }
 
     // Update is called once per frame
@@ -35,9 +36,9 @@ public class SoundMaker : MonoBehaviour
     //     // }
     // }
 
-    IEnumerator PlaySoundAfterDelay(int secs) 
+    IEnumerator PlaySoundAfterDelay(float secs)
     {
-        yield return new WaitForSeconds(secs);
+        yield return new WaitForSeconds( secs );
 
         PlayShot();
 

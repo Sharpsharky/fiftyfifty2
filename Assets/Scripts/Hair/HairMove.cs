@@ -1,7 +1,8 @@
 ﻿using Inputs;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class HairMove : MonoBehaviour, IStickListener
+public class HairMove : MonoBehaviour, IStickListener, IButtonListener
 {
     [SerializeField] private float yMaxPosDeviation = 7.1f;
     [SerializeField] private float hairMoveSpeed = 9.8f;
@@ -41,7 +42,7 @@ public class HairMove : MonoBehaviour, IStickListener
 
     public void OnStickHold(JoystickDoubleAxis stick)
     {
-        if (stick.Code == AxisCode.LeftStick) {
+        if (stick.Code == AxisCode.LeftStick && hairRB != null) {
             if (stick.X > 0) {
                 if (canGoRight)
                     hairRB.velocity = new Vector2( stick.X * Time.deltaTime * hairMoveSpeed, hairRB.velocity.y );
@@ -82,30 +83,50 @@ public class HairMove : MonoBehaviour, IStickListener
     // Update is called once per frame
     void Update()
     {
-        if (hairBone.position.x >= GameManager.CameraXBound.Right) {
-            canGoRight = false;
-        } else {
-            canGoRight = true;
+        if (hairBone != null) {
+            if (hairBone.position.x >= GameManager.CameraXBound.Right) {
+                canGoRight = false;
+            } else {
+                canGoRight = true;
+            }
+
+            if (hairBone.position.x <= GameManager.CameraXBound.Left) {
+                canGoLeft = false;
+            } else {
+                canGoLeft = true;
+            }
+
+
+            if (hairBone.position.y >= yMaxPos) {
+                canGoUp = false;
+            } else if (hairBone.position.y < yMaxPos) {
+                canGoUp = true;
+            }
+            if (hairBone.position.y <= yMinPos) {
+                canGoDown = false;
+            } else if (hairBone.position.y > yMinPos) {
+                canGoDown = true;
+
+            }
         }
 
-        if (hairBone.position.x <= GameManager.CameraXBound.Left) {
-            canGoLeft = false;
-        } else {
-            canGoLeft = true;
-        }
+    }
 
-
-        if (hairBone.position.y >= yMaxPos) {
-            canGoUp = false;
-        } else if (hairBone.position.y < yMaxPos) {
-            canGoUp = true;
+    public void OnButtonPressed(ButtonCode code)
+    {
+        if ( code == ButtonCode.Back ) {
+            SceneManager.LoadScene("the_last_one");
         }
-        if (hairBone.position.y <= yMinPos) {
-            canGoDown = false;
-        } else if (hairBone.position.y > yMinPos) {
-            canGoDown = true;
+    }
 
-        }
+    public void OnButtonReleased(ButtonCode code)
+    {
+       
+    }
+
+    public void OnButtonHeld(ButtonCode code)
+    {
+       
     }
 
     public Tower Tower { private get => tower; set => tower = value; }

@@ -9,6 +9,7 @@ TagManager:
   - EnemyCut
   - Ground
   - MainHair
+  - Pigeon
   layers:
   - Default
   - TransparentFX

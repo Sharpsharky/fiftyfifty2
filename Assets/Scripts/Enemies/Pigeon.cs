@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class Pigeon : FlyingEnemy
@@ -8,13 +9,16 @@ public class Pigeon : FlyingEnemy
     public Transform backWingJoint;
     public Transform frontWingJoint;
 
+    private SoundMaker soundMaker;
+
     public override void Awake()
     {
         base.Awake();
         head = transform.Find( "HeadPart" ).GetComponent<SpriteRenderer>();
+        soundMaker = GetComponent<SoundMaker>();
     }
 
-    public  void FixedUpdate()
+    public void FixedUpdate()
     {
         if ( ShouldDisapear() ) {
             PigeonFactory.ReturnPigeon( this );
@@ -24,6 +28,7 @@ public class Pigeon : FlyingEnemy
     public override void StartMoving()
     {
         rb.velocity = new Vector2( Direction, 0 ) * MoveSpeed;
+        soundMaker.StartDelay();
     }
 
     public override void StopMoving()
@@ -46,9 +51,5 @@ public class Pigeon : FlyingEnemy
         return frontWingJoint.GetChild( 0 ).gameObject;
     }
 
-    public void DoShit()
-    {
-
-    }
 
 }

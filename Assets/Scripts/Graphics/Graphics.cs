@@ -15,19 +15,17 @@ namespace ColdCry.Graphic
         private static MultiDictionaryList<PlatformType, Sprite> platforms = new MultiDictionaryList<PlatformType, Sprite>();
         private static Dictionary<HeadType, Sprite> heads = new Dictionary<HeadType, Sprite>();
 
-
         /// <summary>
         /// Loads all graphics from files 
         /// </summary>
         public static void LoadGraphics()
         {
-            if (Loaded) {
-                platforms.Clear();
-            }
-            Loaded = true;
+            if (!Loaded) {
 
-            _LoadMultiGraphics( platforms );
-            _LoadGraphics( heads );
+                _LoadMultiGraphics( platforms );
+                _LoadGraphics( heads );
+                Loaded = true;
+            }  
         }
 
         public static Sprite GetPlatform(int size)

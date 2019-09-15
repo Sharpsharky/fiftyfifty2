@@ -11,7 +11,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MainMenu.unity
     guid: 2576f3651d962e260ae2bfae33d6f321
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Jumping_testing.unity
     guid: e202a34dec51439d4b01b7b49daa45d8
+  - enabled: 1
+    path: Assets/Scenes/MACIN_2000.unity
+    guid: 3fe1fb1aacdd06442865e272c5b3c433
   m_configObjects: {}

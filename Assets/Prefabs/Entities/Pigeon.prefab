@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 7115422196833001047}
   m_Layer: 9
   m_Name: Pigeon
-  m_TagString: Untagged
+  m_TagString: Pigeon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -168,10 +168,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioClips:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 8300000, guid: 5d894512531de4747bf2525ffdcb65f2, type: 3}
+  - {fileID: 8300000, guid: 6fbdcdb0007cfde46b7ebf45995ce9a4, type: 3}
+  - {fileID: 8300000, guid: a9c5a8a49409b6a45b77322f82560b89, type: 3}
+  - {fileID: 8300000, guid: ca934bf4afbd27c40994ecfe8fa623c3, type: 3}
+  - {fileID: 8300000, guid: b528d23e79edf444da41e60961ee0ea3, type: 3}
+  - {fileID: 8300000, guid: 13d272c16028e394c836cd867e934e4c, type: 3}
 --- !u!61 &5814567915512605065
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -182,7 +184,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0.5864599, y: -0.01832819}

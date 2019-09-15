@@ -1,4 +1,5 @@
-﻿using ColdCry.Utility;
+﻿using System;
+using ColdCry.Utility;
 using UnityEngine;
 
 public class PigeonFactory : MonoBehaviour
@@ -7,6 +8,7 @@ public class PigeonFactory : MonoBehaviour
     public GameObject[] bodiesPrefabs;
     public GameObject[] frontWingsPrefabs;
     public GameObject[] backWingsPrefabs;
+    public Shit shit;
     public int eachPart = 20;
     public float spawnOffset = 2.5f;
 
