@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour, IOnCountdownEnd, IObservable<Difficulty>
+public class GameManager : MonoBehaviour, IOnCountdownEnd, IObservable<Difficulty>, IObservable<long>
 {
     private static GameManager Instance;
 
@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour, IOnCountdownEnd, IObservable<Difficult
     [SerializeField] private float hardSpeed = 0.7f;
 
     private LinkedList<IObserver<Difficulty>> difficultyObservers = new LinkedList<IObserver<Difficulty>>();
+    private LinkedList<IObserver<long>> gameEventsObserver = new LinkedList<IObserver<long>>();
 
     private Difficulty currentDifficulty = Difficulty.EASY;
     private float currentGameSpeed;
@@ -43,16 +44,27 @@ public class GameManager : MonoBehaviour, IOnCountdownEnd, IObservable<Difficult
 
         ColdCry.Graphic.Graphics.LoadGraphics();
         tower = TowerFactory.GetInstance();
+
+        Subscribe( tower );
+
         humanPlayer = PlayersFactory.GetHumanPlayer();
         hairPlayer = PlayersFactory.GetHairPlayer();
 
         hairPlayer.GetComponent<HairMove>().Tower = tower;
 
-        Vector3 firstPlatformPos = tower.GetLowestPlatform(1).transform.position;
+        Vector3 firstPlatformPos = tower.GetLowestPlatform( 1 ).transform.position;
         humanPlayer.transform.position = firstPlatformPos + new Vector3( 0, 0.25f );
 
         // Timers initialization
-        Instance.gameTimerId = TimerManager.Start( easyTimer, this );
+        Instance.gameTimerId = TimerManager.Create( easyTimer, this );
+    }
+
+    public static void StartGame()
+    {
+        TimerManager.Reset( Instance.gameTimerId );
+        foreach (IObserver<long> observer in Instance.gameEventsObserver ) {
+            observer.Notice( 1 );
+        }
     }
 
     public void OnCountdownEnd(long id, float overtime)
@@ -115,6 +127,26 @@ public class GameManager : MonoBehaviour, IOnCountdownEnd, IObservable<Difficult
     public void Unsubscribe(IObserver<Difficulty> observer)
     {
         difficultyObservers.Remove( observer );
+    }
+
+    public static void Subscribe_(IObserver<long> observer)
+    {
+        Instance.Subscribe( observer );
+    }
+
+    public static void Unsubscribe_(IObserver<long> observer)
+    {
+        Instance.Unsubscribe( observer );
+    }
+
+    public void Subscribe(IObserver<long> observer)
+    {
+        Instance.gameEventsObserver.AddLast( observer );
+    }
+
+    public void Unsubscribe(IObserver<long> observer)
+    {
+        Instance.gameEventsObserver.Remove( observer );
     }
 
     public static Difficulty CurrentDifficulty { get => Instance.currentDifficulty; set => Instance.currentDifficulty = value; }

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class Tower : MonoBehaviour
+public class Tower : MonoBehaviour, IObserver<long>
 {
     public TowerSection towerSectionPrefab;
 
@@ -8,18 +8,14 @@ public class Tower : MonoBehaviour
     private Background[] backgrounds;
     private GameObject darkEffect;
 
-    public bool FirstGenerate { get; private set; } = true;
+    private bool started = false;
 
+    public bool FirstGenerate { get; private set; } = true;
 
     private void Awake()
     {
         sections = new TowerSection[3];
         Create();
-    }
-
-    private void Start()
-    {
-        
     }
 
     // generowanie wieży
@@ -38,7 +34,9 @@ public class Tower : MonoBehaviour
 
     public void Update()
     {
-        MoveY( -Time.deltaTime * GameManager.GetGameSpaeed( GameManager.CurrentDifficulty ) );
+        if ( started ) {
+            MoveY( -Time.deltaTime * GameManager.GetGameSpaeed( GameManager.CurrentDifficulty ) );
+        }
     }
 
     // poruszanie wieży lewo/prawo
@@ -174,6 +172,13 @@ public class Tower : MonoBehaviour
                 section.RemoveAllPlatforms();
                 Destroy( section.gameObject );
             }
+        }
+    }
+
+    public void Notice(long t)
+    {
+        if ( t == 1 ) {
+            started = true;
         }
     }
 

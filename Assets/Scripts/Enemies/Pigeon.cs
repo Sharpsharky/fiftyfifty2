@@ -10,6 +10,7 @@ public class Pigeon : FlyingEnemy
 
     public override void Awake()
     {
+        base.Awake();
         head = transform.Find( "HeadPart" ).GetComponent<SpriteRenderer>();
     }
 
