@@ -1,9 +1,10 @@
-﻿using System.Collections;
+﻿using Inputs;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using Inputs;
+using UnityEngine.UI;
+
 public class Life : MonoBehaviour
 {
     public List<GameObject> hearts = new List<GameObject>();
@@ -14,17 +15,23 @@ public class Life : MonoBehaviour
     PlayerGrab pg;
     PInput pi;
 
-    private void Start() {
+    private void Start()
+    {
         pm = GetComponent<PlayerMove>();
         pg = GetComponent<PlayerGrab>();
         pi = GetComponent<PInput>();
 
+        for (var i = 0; i < maxHP; i++) {
+            hearts.Add( GameObject.Find( "serce" + i ) );
+        }
+
         hp = maxHP;
     }
-    public void TakeDamage(int dmg) 
+
+    public void TakeDamage(int dmg)
     {
-        Debug.Log("Current HP "+ hp + " - dmg " + dmg + " = " + (hp-dmg));
-        if ((hp - dmg) > 0) {
+        Debug.Log( "Current HP " + hp + " - dmg " + dmg + " = " + ( hp - dmg ) );
+        if (( hp - dmg ) > 0) {
             var tempColor = hearts[hp - 1].GetComponent<Image>().color;
             tempColor.a = 0;
             hearts[hp - 1].GetComponent<Image>().color = tempColor;
@@ -36,8 +43,8 @@ public class Life : MonoBehaviour
 
     private void Die()
     {
-        Debug.Log("He died!");
-        StartCoroutine(SceneReload());
+        Debug.Log( "He died!" );
+        StartCoroutine( SceneReload() );
     }
 
     IEnumerator SceneReload()
@@ -47,10 +54,9 @@ public class Life : MonoBehaviour
         pi.enabled = false;
 
 
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds( 1f );
 
-
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        SceneManager.LoadScene( SceneManager.GetActiveScene().buildIndex );
 
         yield return null;
     }
