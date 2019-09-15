@@ -110,7 +110,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d16768e275c483468b944f90be0639a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 5
+  moveSpeed: 7.4
   jumpPower: 400
 --- !u!114 &2733077488200903478
 MonoBehaviour:
@@ -125,10 +125,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerNumber: 2
-  usesJoystick: 0
-  alternativeKeyboard: {fileID: 11400000, guid: 3470333068213ec4ab552b17fb7115df,
+  usesJoystick: 1
+  alternativeKeyboard: {fileID: 11400000, guid: f572012f05ca85c4f8944d450a4c6baa,
     type: 2}
   inputEnabled: 1
+  useKeyboardAndJoy: 1
   LSx: 0.15
   LSy: 0.15
   RSx: 0.15

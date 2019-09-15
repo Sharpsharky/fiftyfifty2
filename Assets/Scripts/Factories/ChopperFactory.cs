@@ -50,6 +50,8 @@ public class ChopperFactory : MonoBehaviour
         Vector3 oldScale = chopper.transform.localScale;
         chopper.transform.localScale = new Vector3( -direction * oldScale.x, oldScale.y, oldScale.z );
 
+        chopper.transform.position = startPos;
+
         return chopper;
     }
 

@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: -8796291833101995381}
   - component: {fileID: 5091956897392429767}
   - component: {fileID: 6455805169157865866}
+  - component: {fileID: -2984117269631926829}
   m_Layer: 0
   m_Name: MediumPlatform
   m_TagString: Ground
@@ -140,3 +141,14 @@ PlatformEffector2D:
   m_UseSideFriction: 0
   m_UseSideBounce: 0
   m_SideArc: 1
+--- !u!210 &-2984117269631926829
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4029334061670108641}
+  m_Enabled: 1
+  m_SortingLayerID: 1909292535
+  m_SortingLayer: 2
+  m_SortingOrder: 2

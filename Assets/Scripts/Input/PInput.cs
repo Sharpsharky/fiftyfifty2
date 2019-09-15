@@ -17,6 +17,8 @@ namespace Inputs
         private KeyboardSettings alternativeKeyboard = null;
         [SerializeField]
         private bool inputEnabled = true;
+        [SerializeField]
+        private bool useKeyboardAndJoy = true;
 
         #region DeadZones
         [Header( "Joystick Dead Zone" )]
@@ -336,6 +338,7 @@ namespace Inputs
         public bool UsesJoystick { get => usesJoystick; set => usesJoystick = value; }
         public KeyboardSettings AlternativeKeyboard { get => alternativeKeyboard; }
         public int PlayerNumber { get => playerNumber; set => playerNumber = value; }
+        public bool UseKeyboardAndJoy { get => useKeyboardAndJoy; set => useKeyboardAndJoy = value; }
         #endregion
     }
 }
