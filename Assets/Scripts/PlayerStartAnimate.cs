@@ -28,7 +28,7 @@ public class PlayerStartAnimate : MonoBehaviour
         pg.enabled = false;
         pi.enabled = false;
 
-        earth = GameObject.Find("Earth").transform.GetComponent<EarthGoDown>();
+        earth = GameObject.Find( "Earth" ).GetComponent<EarthGoDown>();
 
         Debug.Log("Animate");
         animator = GetComponent<Animator>();
@@ -81,7 +81,7 @@ public class PlayerStartAnimate : MonoBehaviour
         earth.startedcoroutine = true;
 
         //Tutaj start z klasy Marcina
-        GameManager.StartGame();
+       GameManager.StartGame();
 
 
         this.enabled = false;

@@ -38,6 +38,11 @@ public class RandomEvents : MonoBehaviour, IObserver<Difficulty>, IOnCountdownEn
         chopperId = TimerManager.Create( firstStartChoper, this );
     }
 
+    public void Update()
+    {
+        TimerManager.GetRemaing( pigeonId, out float s );
+    }
+
     public void Notice(Difficulty difficulty)
     {
         switch (difficulty) {

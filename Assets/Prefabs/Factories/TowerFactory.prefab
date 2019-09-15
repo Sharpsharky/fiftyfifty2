@@ -46,7 +46,7 @@ MonoBehaviour:
   tower: {fileID: 2387560532290944023, guid: 82276a4478da9e7469f3efd9328a1f41, type: 3}
   darkEffectPrefab: {fileID: 8751519124958842373, guid: 914cf182146b2f140bc0117249c4c0fc,
     type: 3}
-  xTick: 4.9
-  yTick: 3.6
+  xTick: 4.79
+  yTick: 3.19
   sectionTick: 1.45
   platformsForEachSection: 25
