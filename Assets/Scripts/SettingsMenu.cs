@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
+<<<<<<< HEAD:Assets/Scripts/SettingsMenu.cs
+=======
+
+>>>>>>> master:Assets/SettingsMenu.cs
 
 public class SettingsMenu : MonoBehaviour
 {
@@ -24,11 +28,20 @@ public class SettingsMenu : MonoBehaviour
         QualitySettings.SetQualityLevel(index);
     }
 
+<<<<<<< HEAD:Assets/Scripts/SettingsMenu.cs
     private void Update() {
         float volume = 0;
         audioMixer.GetFloat("volume", out volume);
         bool isOn = (volume < 0 ? true : false);
         audioToggle.isOn = isOn;
+=======
+    void update()
+    {
+        float volume = 0f;
+        audioMixer.GetFloat("volume", out volume);
+        bool isOn = (volume < 0 ? true : false);
+        audioToggle.isOn = isOn;
+>>>>>>> master:Assets/SettingsMenu.cs
     }
 
 }
