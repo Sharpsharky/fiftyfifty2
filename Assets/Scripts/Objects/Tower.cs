@@ -139,8 +139,8 @@ public class Tower : MonoBehaviour, IObserver<long>
     // przesuwa sekcje w lewo
     public void MoveSectionsToLeft()
     {
-        sections[2].Bounds = new Bounds( sections[0].Bounds.Left - sections[0].Background.GetSpriteWidth() * 2, sections[0].Bounds.Left );
-        Vector3 newPosition = new Vector3( sections[0].Bounds.Left - sections[0].Background.GetSpriteWidth(), sections[0].transform.position.y );
+        sections[2].Bounds = new Bounds( sections[0].Bounds.Left - sections[0].Background.GetSpriteWidth(), sections[0].Bounds.Left );
+        Vector3 newPosition = new Vector3( sections[0].Bounds.Left - sections[0].Background.GetSpriteWidth() / 2, sections[0].transform.position.y );
         sections[2].transform.position = newPosition;
 
         TowerSection[] newSections = new TowerSection[sections.Length];
@@ -153,8 +153,8 @@ public class Tower : MonoBehaviour, IObserver<long>
     // przesuwa sekcje w prawo
     public void MoveSectionsToRight()
     {
-        sections[0].Bounds = new Bounds( sections[2].Bounds.Right, sections[2].Bounds.Right + sections[0].Background.GetSpriteWidth() * 2 );
-        Vector3 newPosition = new Vector3( sections[2].Bounds.Right + sections[0].Background.GetSpriteWidth(), sections[2].transform.position.y );
+        sections[0].Bounds = new Bounds( sections[2].Bounds.Right, sections[2].Bounds.Right + sections[0].Background.GetSpriteWidth());
+        Vector3 newPosition = new Vector3( sections[2].Bounds.Right + sections[0].Background.GetSpriteWidth() / 2, sections[2].transform.position.y );
         sections[0].transform.position = newPosition;
 
         TowerSection[] newSections = new TowerSection[sections.Length];

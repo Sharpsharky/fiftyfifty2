@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1357997888551375144}
   - component: {fileID: 7599981771665230023}
   - component: {fileID: -2165807889865461842}
+  - component: {fileID: 7225851043244882116}
   m_Layer: 0
   m_Name: BigPlatform
   m_TagString: Ground
@@ -140,3 +141,14 @@ PlatformEffector2D:
   m_UseSideFriction: 0
   m_UseSideBounce: 0
   m_SideArc: 1
+--- !u!210 &7225851043244882116
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 308615013260238816}
+  m_Enabled: 1
+  m_SortingLayerID: 1909292535
+  m_SortingLayer: 2
+  m_SortingOrder: 2

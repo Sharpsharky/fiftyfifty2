@@ -1,4 +1,5 @@
 ﻿using DoubleMMPrjc.Timer;
+using Inputs;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -67,6 +68,18 @@ public class GameManager : MonoBehaviour, IOnCountdownEnd, IObservable<Difficult
         }
     }
 
+    public static void SwitchInput(int player)
+    {
+        PInput pInput = null;
+        if ( player == 1 ) {
+            pInput = Instance.hairPlayer.GetComponent<PInput>();
+            pInput.UsesJoystick = !pInput.UsesJoystick;
+        } else if ( player == 2) {
+            pInput = Instance.humanPlayer.GetComponent<PInput>();
+            pInput.UsesJoystick = !pInput.UsesJoystick;
+        }
+    }
+
     public void OnCountdownEnd(long id, float overtime)
     {
         if (id == gameTimerId) {
@@ -85,6 +98,8 @@ public class GameManager : MonoBehaviour, IOnCountdownEnd, IObservable<Difficult
                 default:
                     throw new ColdCry.Exception.MissingTypeException( "Missing implementation of difficulty: " + CurrentDifficulty );
             }
+
+            Debug.Log("Game diff: " + currentDifficulty);
 
             foreach (IObserver<Difficulty> observer in Instance.difficultyObservers) {
                 observer.Notice( CurrentDifficulty );

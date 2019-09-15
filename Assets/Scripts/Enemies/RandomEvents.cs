@@ -19,6 +19,9 @@ public class RandomEvents : MonoBehaviour, IObserver<Difficulty>, IOnCountdownEn
     public float mediumChopper = 4.2f;
     public float hardChopper = 3.7f;
 
+    public float firstStartPigeon = 4.5f;
+    public float firstStartChoper = 11f;
+
     private float pigeonTimer;
     private float chopperTimer;
 
@@ -31,8 +34,8 @@ public class RandomEvents : MonoBehaviour, IObserver<Difficulty>, IOnCountdownEn
         pigeonTimer = easyPigeon;
         chopperTimer = easyChopper;
 
-        pigeonId = TimerManager.Create( pigeonTimer, this );
-        chopperId = TimerManager.Create( chopperTimer, this );
+        pigeonId = TimerManager.Create( firstStartPigeon, this );
+        chopperId = TimerManager.Create( firstStartChoper, this );
     }
 
     public void Notice(Difficulty difficulty)
@@ -76,15 +79,17 @@ public class RandomEvents : MonoBehaviour, IObserver<Difficulty>, IOnCountdownEn
         if (id == pigeonId) {
             Pigeon pigeon = PigeonFactory.GetInstance();
             pigeon.StartMoving();
+            TimerManager.Reset( pigeonId, pigeonTimer );
         } else if (id == chopperId) {
             Chopper chopper = ChopperFactory.GetInstance();
             chopper.StartMoving();
+            TimerManager.Reset( chopperId, chopperTimer );
         }
     }
 
     public void Notice(long t)
     {
-        if ( t == 1 ) {
+        if (t == 1) {
             TimerManager.Reset( pigeonId );
             TimerManager.Reset( chopperId );
         }

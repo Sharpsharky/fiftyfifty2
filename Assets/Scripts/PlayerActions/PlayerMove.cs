@@ -2,9 +2,9 @@
 using UnityEngine;
 
 [RequireComponent( typeof( PInput ) )]
-public class PlayerMove : MonoBehaviour, IStickListener
+public class PlayerMove : MonoBehaviour, IStickListener, IButtonListener
 {
-    [SerializeField] private float moveSpeed = 5f;
+    [SerializeField] private float moveSpeed = 7.4f;
     [SerializeField] private float jumpPower = 200f;
 
     private Rigidbody2D rb;
@@ -30,23 +30,15 @@ public class PlayerMove : MonoBehaviour, IStickListener
     public void SpeedUpFalling()
     {
         if (rb.velocity.y < 0) {
-            rb.velocity = new Vector2( rb.velocity.x, rb.velocity.y * 1.04f );
+            rb.velocity = new Vector2( rb.velocity.x, rb.velocity.y * 1.09f );
         }
     }
 
     public void OnStickHold(JoystickDoubleAxis axis)
     {
-        if (axis.Code == AxisCode.LeftStick) {
-            if (playerGrab.isGrabbingHair != true) {
-                float x = axis.GetAxisX();
-                float y = axis.GetAxisY();
-
-                transform.position = transform.position + new Vector3( x, 0 );
-
-                if (y > 0.75) {
-                    Jump();
-                }
-            }
+        if (axis.Code == AxisCode.LeftStick && playerGrab.isGrabbingHair != true) {
+            float x = axis.GetAxisX();
+            transform.position = transform.position + new Vector3( x * Time.deltaTime * MoveSpeed, 0 );
         }
     }
 
@@ -77,6 +69,23 @@ public class PlayerMove : MonoBehaviour, IStickListener
 
             }
         }
+    }
+
+    public void OnButtonPressed(ButtonCode code)
+    {
+        if ( code == ButtonCode.A  && playerGrab.isGrabbingHair != true) {
+            Jump();
+        }
+    }
+
+    public void OnButtonReleased(ButtonCode code)
+    {
+        
+    }
+
+    public void OnButtonHeld(ButtonCode code)
+    {
+        
     }
 
     public float MoveSpeed { get => moveSpeed; set => moveSpeed = value; }

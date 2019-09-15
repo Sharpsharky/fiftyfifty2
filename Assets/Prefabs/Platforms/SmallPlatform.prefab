@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5351728570440721305}
   - component: {fileID: 3436318916529569073}
   - component: {fileID: -9184075755147574817}
+  - component: {fileID: 7990437163031188651}
   m_Layer: 0
   m_Name: SmallPlatform
   m_TagString: Ground
@@ -140,3 +141,14 @@ PlatformEffector2D:
   m_UseSideFriction: 0
   m_UseSideBounce: 0
   m_SideArc: 1
+--- !u!210 &7990437163031188651
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1356365702631501828}
+  m_Enabled: 1
+  m_SortingLayerID: 1909292535
+  m_SortingLayer: 2
+  m_SortingOrder: 2
