@@ -1,0 +1,70 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &865577479930335003
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 865577479930335004}
+  - component: {fileID: 865577479930335005}
+  m_Layer: 0
+  m_Name: PigeonFactory
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &865577479930335004
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 865577479930335003}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &865577479930335005
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 865577479930335003}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5d3b7e1a1a3a8b4e93f021c8370c9ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pigeon: {fileID: 3372810242813698121, guid: bbde7c93b387b524bb0ed44ea36e682d, type: 3}
+  bodiesPrefabs:
+  - {fileID: 6037711545860340211, guid: 2f34f1f6c04042d428d2f76de687ba2e, type: 3}
+  - {fileID: 5004296596731191376, guid: 18445d8ea7716ce479f0e40217512b27, type: 3}
+  - {fileID: 790977433446766597, guid: c267e6d3032cb89469ff972eadeaaea1, type: 3}
+  - {fileID: 7099302193669110518, guid: 9a7c0dfcaa703bb45828b4d96d3cc3f8, type: 3}
+  frontWingsPrefabs:
+  - {fileID: 8485884247585693349, guid: 738cde9c4d58e784b9cee2b9fa4c30cf, type: 3}
+  - {fileID: 4257296159614184009, guid: eec94137ded78784eb9b48b5898f39d8, type: 3}
+  backWingsPrefabs:
+  - {fileID: 1597170850888208865, guid: 09e0bcb09e62c0743b187f5b9f14b380, type: 3}
+  - {fileID: 6637208460423764381, guid: a06df66628bd9a145aa4abd0ee9a2112, type: 3}
+  eachPart: 20
+  spawnOffset: 2.5
+  xOffsetEasy: 1
+  xOffsetMedium: 1.3
+  xOffsetHard: 1.6
+  yOffset: 1
+  minEasySpeed: 3.4
+  maxEasySpeed: 5.7
+  minMediumSpeed: 5.3
+  maxMediumSpeed: 7.5
+  minHardSpeed: 6.9
+  maxHardSpeed: 8.5
+  scale: 0.35
