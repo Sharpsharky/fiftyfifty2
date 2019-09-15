@@ -4,61 +4,29 @@ using System.Collections.Generic;
 using UnityEngine;
 using Inputs;
 using ColdCry.Utility;
-using UnityEngine.UI;
 
 public class PlayerGrab : MonoBehaviour, ITriggerListener
 {
-    public GameObject cooldownSlider;
     bool canHoldTheHair = false;
     public bool isGrabbingHair = false;
     bool canLoseTheHair = false;
     public bool isChangingRotation = false;
     Rigidbody2D rb;
     GameObject hairToGrab = null;
-    Image filler;
-    bool grabCooldown = false;
-    
     // Start is called before the first frame update
     void Start()
     {
-        filler = cooldownSlider.GetComponent<Image>();
         rb = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-
-        if (isChangingRotation == true)
+        if(isChangingRotation == true)
         {
             ComeBackToZeroRotation();
         }
-        if(isGrabbingHair == true)
-        {
-            filler.fillAmount -= Time.deltaTime * 0.5f;
-        }
-        else
-        {
-            if(filler.fillAmount <= 1)
-            {
-                filler.fillAmount += Time.deltaTime * 0.5f;
-            }
-        }
-        if (filler.fillAmount <= 0.02f)
-        {
-            LoseTheHair();
-            StartCoroutine(GrabCooldown());
-
-        }
     }
-    IEnumerator GrabCooldown()
-    {
-        grabCooldown = true;
-        yield return new WaitForSeconds(1f);
-        grabCooldown = false;
-        yield return null;
-    }
-
 
     void OnTriggerEnter2D(Collider2D col)
     {
@@ -171,7 +139,7 @@ public class PlayerGrab : MonoBehaviour, ITriggerListener
 
         if (trigger.Code == AxisCode.LeftTrigger)
         {
-            if (canHoldTheHair == true && isGrabbingHair == false && grabCooldown == false)
+            if (canHoldTheHair == true && isGrabbingHair == false)
             {
                 GrabTheHair();
                 isGrabbingHair = true;
