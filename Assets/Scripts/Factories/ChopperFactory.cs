@@ -9,7 +9,6 @@ public class ChopperFactory : MonoBehaviour
     private ObjectPool<Chopper> choppers;
 
     public float yOffset = 1f;
-    public float scale = 0.35f;
 
     [Header( "Choppers speed" )]
     public float minEasySpeed = 2.4f;
@@ -49,7 +48,7 @@ public class ChopperFactory : MonoBehaviour
         }
 
         Vector3 oldScale = chopper.transform.localScale;
-        chopper.transform.localScale = new Vector3( -direction * Instance.scale, oldScale.y, oldScale.z );
+        chopper.transform.localScale = new Vector3( -direction * oldScale.x, oldScale.y, oldScale.z );
 
         return chopper;
     }

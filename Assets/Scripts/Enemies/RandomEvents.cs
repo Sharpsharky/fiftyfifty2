@@ -1,4 +1,5 @@
 ﻿
+using DoubleMMPrjc.Timer;
 using System.Collections;
 using UnityEngine;
 
@@ -8,7 +9,7 @@ using UnityEngine;
  * 
  * */
 
-public class RandomEvents : MonoBehaviour, IObserver<Difficulty>
+public class RandomEvents : MonoBehaviour, IObserver<Difficulty>, IOnCountdownEnd, IObserver<long>
 {
     public float easyPigeon = 3.8f;
     public float mediumPigeon = 2.8f;
@@ -21,13 +22,17 @@ public class RandomEvents : MonoBehaviour, IObserver<Difficulty>
     private float pigeonTimer;
     private float chopperTimer;
 
+    private long chopperId, pigeonId;
+
     public void Start()
     {
-        GameManager.Subscribe_( this );
+        GameManager.Subscribe_( this as IObserver<long> );
+        GameManager.Subscribe_( this as IObserver<Difficulty> );
         pigeonTimer = easyPigeon;
         chopperTimer = easyChopper;
-        StartCoroutine( DrawPigeonEvent() );
-        StartCoroutine( DrawChopperEvent() );
+
+        pigeonId = TimerManager.Create( pigeonTimer, this );
+        chopperId = TimerManager.Create( chopperTimer, this );
     }
 
     public void Notice(Difficulty difficulty)
@@ -60,9 +65,28 @@ public class RandomEvents : MonoBehaviour, IObserver<Difficulty>
     public IEnumerator DrawChopperEvent() //mainn function that draws new event and does it
     {
         while (true) {
-            yield return new WaitForSeconds( pigeonTimer );
+            yield return new WaitForSeconds( chopperTimer );
             Chopper chopper = ChopperFactory.GetInstance();
             chopper.StartMoving();
+        }
+    }
+
+    public void OnCountdownEnd(long id, float overtime)
+    {
+        if (id == pigeonId) {
+            Pigeon pigeon = PigeonFactory.GetInstance();
+            pigeon.StartMoving();
+        } else if (id == chopperId) {
+            Chopper chopper = ChopperFactory.GetInstance();
+            chopper.StartMoving();
+        }
+    }
+
+    public void Notice(long t)
+    {
+        if ( t == 1 ) {
+            TimerManager.Reset( pigeonId );
+            TimerManager.Reset( chopperId );
         }
     }
 }
