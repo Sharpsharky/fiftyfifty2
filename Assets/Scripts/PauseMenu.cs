@@ -20,7 +20,7 @@ public class PauseMenu : MonoBehaviour, IButtonListener
 
     public void Quit()
     {
-        SceneManager.LoadSceneAsync( SceneManager.GetActiveScene().buildIndex - 1 );
+        SceneManager.LoadScene(0);
     }
 
     public void OnButtonPressed(ButtonCode code)

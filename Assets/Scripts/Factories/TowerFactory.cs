@@ -10,7 +10,7 @@ public class TowerFactory : MonoBehaviour
     [SerializeField] private float xTick = 9.599f;
     [SerializeField] private float yTick = 2.35f;
     [SerializeField] private float sectionTick = 1.8f;
-    [SerializeField] [Range( 1, 30 )] private int platformsForEachSection = 18;
+    [SerializeField] [Range( 1, 600 )] private int platformsForEachSection = 18;
 
     private static TowerFactory Instance;
 

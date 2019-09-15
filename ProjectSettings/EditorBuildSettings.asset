@@ -15,6 +15,12 @@ EditorBuildSettings:
     path: Assets/Scenes/Jumping_testing.unity
     guid: e202a34dec51439d4b01b7b49daa45d8
   - enabled: 1
+    path: Assets/Scenes/Controls.unity
+    guid: 93b6143eaa2de0c4cab019a1667f64ba
+  - enabled: 1
     path: Assets/Scenes/MACIN_2000.unity
     guid: 3fe1fb1aacdd06442865e272c5b3c433
+  - enabled: 1
+    path: Assets/Scenes/the_last_one.unity
+    guid: fc8310a3d4b9fb84e9eb988434699ac3
   m_configObjects: {}

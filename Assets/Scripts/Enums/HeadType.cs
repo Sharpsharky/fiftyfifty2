@@ -3,5 +3,6 @@
     ZEBRA,
     DEER,
     PIGEON,
-    SWAN
+    SWAN,
+    CROC
 }

@@ -28,7 +28,9 @@ public class HairCut : MonoBehaviour
     IEnumerator DestroyAfterAMoment()
     {
         yield return new WaitForSeconds( 0.5f );
-        Destroy( mainHair.transform.GetChild( numberOfHairSprite ).gameObject );
+        if ( mainHair != null ) {
+            Destroy( mainHair.transform.GetChild( numberOfHairSprite ).gameObject );
+        }
         gameObject.GetComponent<HingeJoint2D>().enabled = false;
         yield return null;
     }

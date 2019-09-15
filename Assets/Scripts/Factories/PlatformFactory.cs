@@ -28,9 +28,9 @@ public class PlatformFactory : MonoBehaviour
         }
         Instance = this;
 
-        smallPool = new ObjectPool<Platform>( smallPlatform, 93, SMALL_P_NAME );
-        mediumPool = new ObjectPool<Platform>( mediumPlatform, 93, MEDIUM_P_NAME );
-        bigPool = new ObjectPool<Platform>( bigPlatform, 93, BIG_P_NAME );
+        smallPool = new ObjectPool<Platform>( smallPlatform, 800, SMALL_P_NAME );
+        mediumPool = new ObjectPool<Platform>( mediumPlatform, 800, MEDIUM_P_NAME );
+        bigPool = new ObjectPool<Platform>( bigPlatform, 800, BIG_P_NAME );
 
         foreach (Platform platform in smallPool) {
             platform.poolParent = smallPool.Parent.name;

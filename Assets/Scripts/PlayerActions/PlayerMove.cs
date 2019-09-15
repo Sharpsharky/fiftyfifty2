@@ -1,5 +1,7 @@
 ﻿using Inputs;
+using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [RequireComponent( typeof( PInput ) )]
 public class PlayerMove : MonoBehaviour, IStickListener, IButtonListener
@@ -19,6 +21,7 @@ public class PlayerMove : MonoBehaviour, IStickListener, IButtonListener
     private PlayerAudio playerAudio;
 
     private bool isJumping = false, iswalking = false, isIdling = false;
+    private bool checking = true;
 
     public void Awake()
     {
@@ -30,17 +33,18 @@ public class PlayerMove : MonoBehaviour, IStickListener, IButtonListener
         startScale = transform.localScale;
     }
 
-    public void Start()
-    {
-    }
-
     public void Update()
     {
         SpeedUpFalling();
-        if (transform.position.y > GameManager.CameraYBound.Right-0.5f ) {
+        if (transform.position.y > GameManager.CameraYBound.Right - 0.65f) {
             float dy = transform.position.y - GameManager.CameraYBound.Right;
-            GameManager.Tower.MoveY(-dy * Time.deltaTime);
+            GameManager.Tower.MoveY( -dy * Time.deltaTime );
         }
+        if (GameManager.CameraYBound.Left - 1f >= transform.position.y) {
+            checking = false;
+            StartCoroutine( SceneReload() );
+        }
+
     }
 
     public void OnStickChange(JoystickDoubleAxis axis)
@@ -83,7 +87,7 @@ public class PlayerMove : MonoBehaviour, IStickListener, IButtonListener
         if (axis.Code == AxisCode.LeftStick) {
             if (isJumping == false) {
                 if (isIdling == false) {
-                    Debug.Log( "StartIdle" );
+
                     _animator.SetTrigger( "Idle" );
                     isIdling = true;
                     iswalking = false;
@@ -171,6 +175,16 @@ public class PlayerMove : MonoBehaviour, IStickListener, IButtonListener
     public void OnButtonHeld(ButtonCode code)
     {
 
+    }
+
+
+    IEnumerator SceneReload()
+    {
+        yield return new WaitForSeconds( 1f );
+
+        SceneManager.LoadScene( SceneManager.GetActiveScene().buildIndex );
+
+        yield return null;
     }
 
     public float MoveSpeed { get => moveSpeed; set => moveSpeed = value; }

@@ -1,5 +1,6 @@
 ﻿public enum WingFrontType
 {
     PIGEON,
-    SWAN
+    SWAN,
+    BALOONS
 }
