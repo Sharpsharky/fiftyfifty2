@@ -43,6 +43,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbb4f7de694e78a448d42e332a103bbf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  newEventFrequancy: 5
-  pigeonHeightSpawnOnScreen: 0.7
-  chopperPrefab: {fileID: 0}
+  easyPigeon: 4.47
+  mediumPigeon: 3.52
+  hardPigeon: 2.02
+  easyChopper: 6.74
+  mediumChopper: 5.17
+  hardChopper: 3.94
+  firstStartPigeon: 4.49
+  firstStartChoper: 11.19

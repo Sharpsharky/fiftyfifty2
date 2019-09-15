@@ -16,7 +16,7 @@ public class PlayerMove : MonoBehaviour, IStickListener, IButtonListener
     private Animator _animator;
     private BoxCollider2D coll;
 
-    private bool isJumping = false, iswalking = false,  isIdling = false;
+    private bool isJumping = false, iswalking = false, isIdling = false;
 
     public void Awake()
     {
@@ -29,11 +29,11 @@ public class PlayerMove : MonoBehaviour, IStickListener, IButtonListener
 
     public void Update()
     {
-      //  Debug.Log("isGrounded:" + isGrounded);
+        //  Debug.Log("isGrounded:" + isGrounded);
 
         SpeedUpFalling();
 
-   //     Debug.Log("isJumping:"+ isJumping + " isIdling " + isIdling+ " iswalking " + iswalking);
+        //     Debug.Log("isJumping:"+ isJumping + " isIdling " + isIdling+ " iswalking " + iswalking);
 
 
     }
@@ -55,13 +55,10 @@ public class PlayerMove : MonoBehaviour, IStickListener, IButtonListener
         if (axis.Code == AxisCode.LeftStick) {
             isIdling = false;
 
-            if (isJumping == false)
-            {
-                if (iswalking == false)
-                {
-                    if (isGrounded)
-                    {
-                        _animator.SetTrigger("Walk");
+            if (isJumping == false) {
+                if (iswalking == false) {
+                    if (isGrounded) {
+                        _animator.SetTrigger( "Walk" );
                         iswalking = true;
                     }
                 }
@@ -76,15 +73,13 @@ public class PlayerMove : MonoBehaviour, IStickListener, IButtonListener
         }
     }
 
-    public void OnStickDeadZone(JoystickDoubleAxis axis) {
-        if (axis.Code == AxisCode.LeftStick)
-        {
-            if (isJumping == false)
-            {
-                if (isIdling == false)
-                {
-                    Debug.Log("StartIdle");
-                    _animator.SetTrigger("Idle");
+    public void OnStickDeadZone(JoystickDoubleAxis axis)
+    {
+        if (axis.Code == AxisCode.LeftStick) {
+            if (isJumping == false) {
+                if (isIdling == false) {
+                    Debug.Log( "StartIdle" );
+                    _animator.SetTrigger( "Idle" );
                     isIdling = true;
                     iswalking = false;
 
@@ -98,17 +93,33 @@ public class PlayerMove : MonoBehaviour, IStickListener, IButtonListener
     void Jump()
     {
 
-        if (!isGrounded ) {
+        if (!isGrounded) {
             return;
         }
         isJumping = true;
         iswalking = false;
         isIdling = false;
 
-        _animator.SetTrigger("Jump");
+        _animator.SetTrigger( "Jump" );
         rb.AddForce( transform.up * jumpPower );
         isGrounded = false;
         gameObject.transform.parent = null;
+    }
+
+    public bool IsOnGround()
+    {
+        RaycastHit2D[] hit;
+        hit = Physics2D.RaycastAll( transform.position, Vector2.down, coll.bounds.extents.y );
+        // you can increase RaycastLength and adjust direction for your case
+        foreach (var hited in hit) {
+            if (hited.collider.gameObject == gameObject) //Ignore my character
+                continue;
+            // Don't forget to add tag to your ground
+            if (hited.collider.gameObject.tag == "Ground") { //Change it to match ground tag
+                return true;
+            }
+        }
+        return false;
     }
 
     public virtual bool IsTouchingGround()
@@ -124,7 +135,8 @@ public class PlayerMove : MonoBehaviour, IStickListener, IButtonListener
         if (playerGrab.isGrabbingHair == false) {
             if (col.gameObject.tag.Equals( "Ground" )) {
 
-                if (isJumping == true) isJumping = false; 
+                if (isJumping == true)
+                    isJumping = false;
                 gameObject.transform.parent = col.gameObject.transform;
                 transform.eulerAngles = new Vector3( 0, 0, 0 );
                 playerGrab.isChangingRotation = false;
@@ -136,19 +148,19 @@ public class PlayerMove : MonoBehaviour, IStickListener, IButtonListener
 
     public void OnButtonPressed(ButtonCode code)
     {
-        if ( code == ButtonCode.A  && playerGrab.isGrabbingHair != true) {
+        if (code == ButtonCode.A && playerGrab.isGrabbingHair != true && IsOnGround()) {
             Jump();
         }
     }
 
     public void OnButtonReleased(ButtonCode code)
     {
-        
+
     }
 
     public void OnButtonHeld(ButtonCode code)
     {
-        
+
     }
 
     public float MoveSpeed { get => moveSpeed; set => moveSpeed = value; }

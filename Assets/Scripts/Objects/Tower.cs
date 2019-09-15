@@ -3,6 +3,7 @@
 public class Tower : MonoBehaviour, IObserver<long>
 {
     public TowerSection towerSectionPrefab;
+    public GameObject borders;
 
     private TowerSection[] sections;
     private Background[] backgrounds;
@@ -16,6 +17,14 @@ public class Tower : MonoBehaviour, IObserver<long>
     {
         sections = new TowerSection[3];
         Create();
+    }
+
+    private void Start()
+    {
+        GameObject b1 = Instantiate( borders, new Vector3( -GameManager.InnerMask.bounds.extents.x , 0, 0 ), Quaternion.identity );
+        b1.transform.localScale = new Vector3( 1, b1.transform.localScale.y, b1.transform.localScale.z );
+        GameObject b2 = Instantiate( borders, new Vector3( GameManager.InnerMask.bounds.extents.x, 0, 0 ), Quaternion.identity );
+        b2.transform.localScale = new Vector3( -1, b2.transform.localScale.y, b2.transform.localScale.z );
     }
 
     // generowanie wieży
@@ -34,7 +43,7 @@ public class Tower : MonoBehaviour, IObserver<long>
 
     public void Update()
     {
-        if ( started ) {
+        if (started) {
             MoveY( -Time.deltaTime * GameManager.GetGameSpaeed( GameManager.CurrentDifficulty ) );
         }
     }
@@ -153,7 +162,7 @@ public class Tower : MonoBehaviour, IObserver<long>
     // przesuwa sekcje w prawo
     public void MoveSectionsToRight()
     {
-        sections[0].Bounds = new Bounds( sections[2].Bounds.Right, sections[2].Bounds.Right + sections[0].Background.GetSpriteWidth());
+        sections[0].Bounds = new Bounds( sections[2].Bounds.Right, sections[2].Bounds.Right + sections[0].Background.GetSpriteWidth() );
         Vector3 newPosition = new Vector3( sections[2].Bounds.Right + sections[0].Background.GetSpriteWidth() / 2, sections[2].transform.position.y );
         sections[0].transform.position = newPosition;
 
@@ -177,7 +186,7 @@ public class Tower : MonoBehaviour, IObserver<long>
 
     public void Notice(long t)
     {
-        if ( t == 1 ) {
+        if (t == 1) {
             started = true;
         }
     }

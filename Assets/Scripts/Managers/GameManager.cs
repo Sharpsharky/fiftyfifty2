@@ -26,6 +26,8 @@ public class GameManager : MonoBehaviour, IOnCountdownEnd, IObservable<Difficult
     private float currentGameSpeed;
     private long gameTimerId;
     private Bounds cameraXBound, cameraYBound;
+    private SpriteMask innerMask;
+    private SpriteMask outerMask;
 
     private void Awake()
     {
@@ -48,6 +50,9 @@ public class GameManager : MonoBehaviour, IOnCountdownEnd, IObservable<Difficult
 
         Subscribe( tower );
 
+        innerMask = GameObject.Find( "Mask" ).GetComponent<SpriteMask>();
+        outerMask = GameObject.Find( "Mask_Platform" ).GetComponent<SpriteMask>();
+
         // humanPlayer = PlayersFactory.GetHumanPlayer();
         hairPlayer = PlayersFactory.GetHairPlayer();
 
@@ -57,6 +62,8 @@ public class GameManager : MonoBehaviour, IOnCountdownEnd, IObservable<Difficult
 
         // Vector3 firstPlatformPos = tower.GetLowestPlatform( 1 ).transform.position;
         //humanPlayer.transform.position = firstPlatformPos + new Vector3( 0, 0.25f );
+
+
 
         // Timers initialization
         Instance.gameTimerId = TimerManager.Create( easyTimer, this );
@@ -172,4 +179,6 @@ public class GameManager : MonoBehaviour, IOnCountdownEnd, IObservable<Difficult
     public static Tower Tower { get => Instance.tower; }
     public static GameObject HumanPlayer { get => Instance.humanPlayer; }
     public static GameObject HairPlayer { get => Instance.hairPlayer; }
+    public static SpriteMask OuterMask { get => Instance.outerMask; }
+    public static SpriteMask InnerMask { get => Instance.innerMask; }
 }
