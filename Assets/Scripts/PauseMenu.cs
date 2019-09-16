@@ -1,10 +1,15 @@
+<<<<<<< Updated upstream
 ﻿using Inputs;
+=======
+using Inputs;
+>>>>>>> Stashed changes
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour, IButtonListener
 {
     private bool isPaused = false;
+
     private void Update()
     {
 
@@ -20,11 +25,22 @@ public class PauseMenu : MonoBehaviour, IButtonListener
 
     public void Quit()
     {
+<<<<<<< Updated upstream
         SceneManager.LoadScene(0);
+=======
+        SceneManager.LoadSceneAsync( SceneManager.GetActiveScene().buildIndex - 1 );
+>>>>>>> Stashed changes
     }
 
     public void OnButtonPressed(ButtonCode code)
     {
+<<<<<<< Updated upstream
+=======
+
+        if (code == ButtonCode.Start) {
+            isPaused = !isPaused;
+        }
+>>>>>>> Stashed changes
         if (code == ButtonCode.Start) {
             isPaused = !isPaused;
         }
